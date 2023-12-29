@@ -12,5 +12,7 @@ urlpatterns = [
     path('', views.ProductAPIView.as_view(), name='shop'),
     path('detail/<int:pk>/', views.ProductDetailAPIView.as_view(), name='product-detail'),
 
-    path('categ/<int:category_id>/products/', views.ProductByCategoryList.as_view(), name='products-by-category')
+    path('categ/<int:category_id>/products/', views.ProductByCategoryList.as_view(), name='products-by-category'),
+
+    path('search/', views.ProductSearchView.as_view(), name = 'products-search')
 ]
