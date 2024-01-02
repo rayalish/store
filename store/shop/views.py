@@ -33,6 +33,28 @@ class UpdateCategAPIView(UpdateAPIView):
 
 
 
+
+
+class ListCreateQuanAPIView(ListCreateAPIView):
+    queryset = QuantityVariant.objects.all()
+    serializer_class = QuantitySerializer
+
+class RetrieveQuanAPIView(RetrieveAPIView):
+    queryset = QuantityVariant.objects.all()
+    serializer_class = QuantitySerializer
+
+class DestroyQuanAPIView(DestroyAPIView):
+    queryset = QuantityVariant.objects.all()
+    serializer_class = QuantitySerializer
+
+class UpdateQuanAPIView(UpdateAPIView):
+    queryset = QuantityVariant.objects.all()
+    serializer_class = QuantitySerializer
+
+
+
+
+
 class ProductAPIView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
