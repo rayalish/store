@@ -3,6 +3,8 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework import mixins
 from django.contrib.auth.models import User
+from rest_framework.generics import RetrieveDestroyAPIView
+from shop.permissions import IsAdminOrReadOnly
 
 from .serializers import *
 
@@ -22,3 +24,9 @@ class UserViewSet(GenericViewSet, mixins.CreateModelMixin, ):
         instance = self.get_queryset()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+    
+class RetrieveDestroyUserAPIView(RetrieveDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes  = (IsAdminOrReadOnly, )
+    

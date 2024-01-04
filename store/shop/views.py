@@ -1,36 +1,27 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.generics import (
-    CreateAPIView, 
-    ListAPIView, 
-    RetrieveAPIView, 
-    DestroyAPIView, 
-    UpdateAPIView,
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView
 )
-from rest_framework.views import APIView
 
 from .models import *
 from .serializers import *
+from .permissions import *
+
+
 
 
 class ListCreateCategAPIView(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes  = (IsAdminOrReadOnly, )
 
-class RetrieveCategAPIView(RetrieveAPIView):
+class RetrieveUpdateDestroyCategAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-
-class DestroyCategAPIView(DestroyAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-class UpdateCategAPIView(UpdateAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
+    permission_classes  = (IsAdminOrReadOnly, )
+    
 
 
 
@@ -38,30 +29,30 @@ class UpdateCategAPIView(UpdateAPIView):
 class ListCreateQuanAPIView(ListCreateAPIView):
     queryset = QuantityVariant.objects.all()
     serializer_class = QuantitySerializer
+    permission_classes  = (IsAdminOrReadOnly, )
 
-class RetrieveQuanAPIView(RetrieveAPIView):
+class RetrieveUpdateDestroyQuanAPIView(RetrieveUpdateDestroyAPIView):
     queryset = QuantityVariant.objects.all()
     serializer_class = QuantitySerializer
-
-class DestroyQuanAPIView(DestroyAPIView):
-    queryset = QuantityVariant.objects.all()
-    serializer_class = QuantitySerializer
-
-class UpdateQuanAPIView(UpdateAPIView):
-    queryset = QuantityVariant.objects.all()
-    serializer_class = QuantitySerializer
+    permission_classes  = (IsAdminOrReadOnly, )
 
 
 
 
 
-class ProductAPIView(ListCreateAPIView):
+
+class ListCreateProductAPIView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-class ProductDetailAPIView(RetrieveUpdateDestroyAPIView):
+    permission_classes  = (IsAdminOrReadOnly, )
+    
+class RetrieveUpdateDestroyProductAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes  = (IsAdminOrReadOnly, )
+
+    
+
 
 class ProductByCategoryList(generics.ListAPIView):
     serializer_class = ProductSerializer
