@@ -33,8 +33,21 @@ def correct_price(sender, **kwargs):
     cart_items = kwargs['instance']
     price_of_product = Product.objects.get(id=cart_items.product.id)
     cart_items.price = cart_items.quantity * float(price_of_product.price)
-    total_cart_items = CartItems.objects.filter(user = cart_items.user )
-    cart = Cart.objects.get(id = cart_items.cart.id)
-    cart.total_price = cart_items.price
-    cart.save()
+    # total_cart_items = CartItems.objects.filter(user = cart_items.user)
+    # cart = Cart.objects.get(id = cart_items.cart.id)
+    # cart.total_price = cart_items.price
+    # cart.save()
     
+class Orders(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete = models.CASCADE)
+    amount = models.FloatField(default = 0)
+    is_paid = models.BooleanField(default = False)
+    order_id = models.CharField(max_length = 100, blank = True)
+    payment_id = models.CharField(max_length = 100, blank = True)
+    payment_signature = models.CharField(max_length = 100, blank = True)
+
+
+class OrderedItems(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    order = models.ForeignKey(Orders, on_delete = models.CASCADE)

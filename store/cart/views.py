@@ -58,3 +58,12 @@ class CartView(APIView):
         queryset = CartItems.objects.filter(cart = cart)
         serializer = CartItemsSerializer(queryset, many = True)
         return Response(serializer.data)
+    
+
+
+class OrderAPI(APIView):
+
+    def get(self, request):
+        queryset = Orders.objects.filter(user = request.user)
+        serializer = OrderSerializer(queryset, many = True)
+        return Response(serializer.data)
