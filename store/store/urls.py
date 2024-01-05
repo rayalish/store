@@ -13,6 +13,7 @@ urlpatterns = [
     
     path('authe/users/', include('authe.urls')),
     path('api/product/', include('shop.urls')),
+    path('api/cart/', include('cart.urls'))
 ]
 
 if settings.DEBUG:

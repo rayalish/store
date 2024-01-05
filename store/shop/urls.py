@@ -7,7 +7,7 @@ urlpatterns = [
     path('categ/', views.ListCreateCategAPIView.as_view(), name='categ-list'),
     path('categ/one/<int:pk>/', views.RetrieveUpdateDestroyCategAPIView.as_view(), name='categ_one'), 
     path('categ/<int:category_id>/products/', views.ProductByCategoryList.as_view(), name='products-by-category'),  
-    path('', views.ListCreateCategAPIView.as_view(), name='shop'),
+    path('', views.ListCreateProductAPIView.as_view(), name='shop'),
     path('search/', views.ProductSearchView.as_view(), name = 'products-search'),
 
     path('quantity_type/', views.ListCreateQuanAPIView.as_view(), name='quantity-type-list'), 

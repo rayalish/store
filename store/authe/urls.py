@@ -14,5 +14,6 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='user_login'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    path('admin/<int:pk>/', views.RetrieveDestroyUserAPIView.as_view(), name='retrieve_update_destroy_user')
+    path('admin/<int:pk>/', views.RetrieveDestroyUserAPIView.as_view(), name='retrieve_update_destroy_user'),
+    path('admin/', views.ListUserAPIView.as_view(), name='list_user'),
 ]
