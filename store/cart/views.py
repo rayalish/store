@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
+from rest_framework import status
 
 from .models import *
 from .serializers import *
@@ -61,9 +63,36 @@ class CartView(APIView):
     
 
 
-class OrderAPI(APIView):
+
+
+    
+
+# views.py
+class CartToOrderView(generics.CreateAPIView):
+    queryset = Orders.objects.all()
+    serializer_class = OrderSerializer
 
     def get(self, request):
-        queryset = Orders.objects.filter(user = request.user)
-        serializer = OrderSerializer(queryset, many = True)
+        queryset = Orders.objects.filter(user=request.user)
+        serializer = OrderSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        # Получение данных из корзины пользователя
+        cart_items = CartItems.objects.filter(user=request.user)
+
+        # Проверка, что корзина не пуста
+        if not cart_items.exists():
+            return Response({'detail': 'Корзина пуста'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Создание заказа
+        total_amount = sum(item.price for item in cart_items)
+
+        order_serializer = self.get_serializer(data={'user': request.user.id, 'cart': cart_items[0].cart.id, 'amount': total_amount, 'is_paid': True})
+        order_serializer.is_valid(raise_exception=True)
+        order_serializer.save()
+
+        # Очистка корзины
+        cart_items.delete()
+
+        return Response(order_serializer.data, status=status.HTTP_201_CREATED)

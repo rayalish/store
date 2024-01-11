@@ -24,7 +24,7 @@ class CartItems(models.Model):
     quantity = models.IntegerField(default=1)
     
     def __str__(self):
-        return str(self.user.username) + " " + str(self.product.product_name)
+        return str(self.user.username) + " " + str(self.product.name)
         
     
 
@@ -43,11 +43,6 @@ class Orders(models.Model):
     cart = models.ForeignKey(Cart, on_delete = models.CASCADE)
     amount = models.FloatField(default = 0)
     is_paid = models.BooleanField(default = False)
-    order_id = models.CharField(max_length = 100, blank = True)
-    payment_id = models.CharField(max_length = 100, blank = True)
-    payment_signature = models.CharField(max_length = 100, blank = True)
 
 
-class OrderedItems(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    order = models.ForeignKey(Orders, on_delete = models.CASCADE)
+
