@@ -43,6 +43,6 @@ class Orders(models.Model):
     cart = models.ForeignKey(Cart, on_delete = models.CASCADE)
     amount = models.FloatField(default = 0)
     is_paid = models.BooleanField(default = False)
-
+    items = models.CharField(max_length=150, blank=True)
 
 

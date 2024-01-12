@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from shop.serializers import *
+from authe.serializers import UserSerializer
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +20,4 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
         fields = '__all__'
+
